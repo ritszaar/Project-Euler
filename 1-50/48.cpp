@@ -3,17 +3,20 @@ using namespace std;
 
 using ll = long long;
 
-const int N = 1000000;
+const ll N = 1e10;
+
+ll findRem(ll a, ll b, ll m) {
+    ll rem = 1;
+    for (ll i = 0; i < b; i++) {
+        rem = (rem * a) % m; 
+    } return rem;
+}
 
 void solve() {
-    vector<int> digits = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    for (int i = 0; i < N - 1; i++) {
-        next_permutation(digits.begin(), digits.end());
-    }
-
-    for (int digit : digits) {
-        cout << digit;
-    } cout << "\n";
+    ll ans = 0;
+    for (ll i = 1LL; i <= 1000LL; i++) {
+        ans = (ans + findRem(i, i, N)) % N;
+    } cout << ans << "\n";
 }
 
 inline void debugMode() {

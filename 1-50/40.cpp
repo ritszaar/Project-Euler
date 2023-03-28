@@ -3,17 +3,17 @@ using namespace std;
 
 using ll = long long;
 
-const int N = 1000000;
-
 void solve() {
-    vector<int> digits = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    for (int i = 0; i < N - 1; i++) {
-        next_permutation(digits.begin(), digits.end());
-    }
+    string s;
+    int nDigits = 0;
+    for (int i = 1; nDigits < 1001010; i++, nDigits += floor(log10(i)) + 1) {
+        s += to_string(i);
+    }   
 
-    for (int digit : digits) {
-        cout << digit;
-    } cout << "\n";
+    int product = 1;
+    for (int i = 10; i <= 1000000; i *= 10) {
+        product *= s[i - 1] - '0';
+    } cout << product << "\n";
 }
 
 inline void debugMode() {
