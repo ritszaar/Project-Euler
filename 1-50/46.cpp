@@ -18,35 +18,24 @@ vector<bool> sieve(ll n) {
 
 void solve() {
     vector<bool> is_prime = sieve(N);
-    vector<int> primes;
-    for (int i = 0; i <= N; i++) {
-        if (is_prime[i]) {
-            primes.push_back(i);
-        }
-    }
-
-    int prime, maxLen = 0;
-    for (int i = 0; i < int(primes.size()); i++) {
-        int sum = primes[i], len = 1;
-        int validSum = sum, validLen = len;
-        for (int j = i + 1; j < int(primes.size()); j++) {
-            if (sum + primes[j] < N) {
-                sum += primes[j];
-                len++;
-                if (is_prime[sum]) {
-                    validSum = sum;
-                    validLen = len;
+    for (int i = 3; ; i += 2) {
+        if (!is_prime[i]) {
+            bool canBeDone = false;
+            for (int j = 2; j < i; j++) {
+                if (is_prime[j]) {
+                    if (floor(sqrt((i - j)/2)) == sqrt((i - j)/2)) {
+                        canBeDone = true;
+                        break;
+                    } 
                 }
-            } else {
+            }
+
+            if (!canBeDone) {
+                cout << i << "\n";
                 break;
             }
         }
-
-        if (maxLen < validLen) {
-            maxLen = validLen;
-            prime = validSum;
-        }
-    } cout << prime << "\n";
+    }
 }
 
 inline void debugMode() {
