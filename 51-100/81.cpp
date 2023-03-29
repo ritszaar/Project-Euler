@@ -13,14 +13,13 @@ bool isValid(int i, int j) {
 
 ll rec(int row, int col) {
     // Base Case
-    cout << row << " " << col << "\n";
     if (!isValid(row, col)) {
         return INT64_MAX;
     }
 
-    if (col == n - 1) {
+    if (row == n - 1 &&  col == n - 1) {
         return grid[row][col];
-    }
+    } 
 
     // Cache Check
     if (dp[row][col] != -1) {
@@ -28,15 +27,15 @@ ll rec(int row, int col) {
     }
 
     // Transitions
-    ll ans = grid[row][col] + min(rec(row + 1, col), min(rec(row - 1, col), rec(row, col + 1)));
+    ll ans = grid[row][col] + min(rec(row + 1, col), rec(row, col + 1));
 
-    // Save and return
+    // Save and Return
     return dp[row][col] = ans;
 }
 
 void solve() {
     n = 80;
-    ifstream fin("82.txt");
+    ifstream fin("81.txt");
     string row, col;
     for (int i = 0; i < n; i++) {
         fin >> row;
@@ -48,7 +47,6 @@ void solve() {
     }
 
     memset(dp, -1, sizeof(dp));
-    cout << "Hi\n";
     cout << rec(0, 0) << "\n";
 }
 
@@ -61,10 +59,10 @@ inline void debugMode() {
 
 signed main() {
 
-    // ios_base::sync_with_stdio(0);
-    // cin.tie(0); cout.tie(0);
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
 
-    // debugMode();
+    debugMode();
 
     int t = 1;
     while (t--) {
